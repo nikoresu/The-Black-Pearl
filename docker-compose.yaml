@@ -1,0 +1,139 @@
+networks:
+  arr-network:
+
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+      - WEBUI_PORT=${QBITTORRENT_WEBUI_PORT}
+      - UMASK=022
+    ports:
+      - "8085:8085"
+    volumes:
+      - ${CONFIG_PATH}/qbittorrent/config:/config:z
+      - ${MEDIA_PATH}:/Media:z
+    networks:
+      - arr-network
+    restart: always
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    ports:
+      - "8989:8989"
+    volumes:
+      - ${CONFIG_PATH}/sonarr/config:/config:z
+      - ${MEDIA_PATH}:/Media:z
+    networks:
+      - arr-network
+    restart: always
+  
+  sonarr-anime:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr-anime
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    ports:
+      - "8990:8989"
+    volumes:
+      - ${CONFIG_PATH}/sonarr-anime/config:/config:z
+      - ${MEDIA_PATH}:/Media:z
+    networks:
+      - arr-network
+    restart: always
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    ports:
+      - "7878:7878"
+    volumes:
+      - ${CONFIG_PATH}/radarr/config:/config:z
+      - ${MEDIA_PATH}:/Media:z
+    networks:
+      - arr-network
+    restart: always
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    ports:
+      - "9696:9696"
+    volumes:
+      - ${CONFIG_PATH}/prowlarr/config:/config:z
+    networks:
+      - arr-network
+    restart: always
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    ports:
+      - "8191:8191"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - arr-network
+    restart: always
+
+  jellyseerr:
+    image: ghcr.io/fallenbagel/jellyseerr:latest
+    init: true
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=info
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    ports:
+      - "5055:5055"
+    volumes:
+      - ${CONFIG_PATH}/jellyseerr/config:/app/config:z
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    restart: always
+    networks:
+      - arr-network
+  
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${CONFIG_PATH}/jellyfin:/config:z
+      - ${MEDIA_PATH}:/data/media:z
+    ports:
+      - 8096:8096
+    networks:
+      - arr-network
+    restart: always
+
