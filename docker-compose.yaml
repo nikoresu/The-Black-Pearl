@@ -12,8 +12,8 @@ services:
       - WEBUI_PORT=${QBITTORRENT_WEBUI_PORT}
       - UMASK=022
     ports:
-      - "8085:8085"
-      - ${QBITTORRENT_CONNECT_PORT}:${QBITTORRENT_CONNECT_PORT}
+      - ${QBITTORRENT_WEBUI_PORT}:${QBITTORRENT_WEBUI_PORT}
+      - ${QBITTORRENT_CONNECT_PORT}:6881
     volumes:
       - ${CONFIG_PATH}/qbittorrent/config:/config:z
       - ${MEDIA_PATH}:/Media:z
