@@ -83,6 +83,22 @@ services:
     networks:
       - arr-network
     restart: always
+  
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    ports:
+      - "6767:6767"
+    volumes:
+      - ${CONFIG_PATH}/bazarr/config:/config:z
+      - ${MEDIA_PATH}:/Media:z
+    networks:
+      - arr-network
+    restart: always
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest

@@ -13,6 +13,7 @@ This stack includes the following services:
 - **Sonarr Anime** (Port 8990) - Dedicated Sonarr instance for anime content
 - **Radarr** (Port 7878) - Movie automation and management
 - **Prowlarr** (Port 9696) - Indexer management for Sonarr and Radarr
+- **Bazarr** (Port 6767) - Subtitles management
 
 ### Support Services
 - **FlareSolverr** (Port 8191) - Cloudflare challenge solver for indexers
@@ -76,6 +77,7 @@ This stack includes the following services:
    - Prowlarr: http://localhost:9696
    - Jellyseerr: http://localhost:5055
    - Jellyfin: http://localhost:8096
+   - Bazarr: http://localhost:6767
 
 3. **Initial Configuration**
    - Configure Prowlarr indexers first
