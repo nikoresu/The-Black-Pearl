@@ -1,0 +1,7 @@
+[Unit]
+Description=Arr-Stack backuper
+
+[Service]
+Type=oneshot
+WorkingDirectory=${ARR_STACK_FOLDER}
+ExecStart=/usr/bin/python ${ARR_STACK_FOLDER}/backup/src/manage_backups.py
