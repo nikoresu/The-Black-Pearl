@@ -141,10 +141,13 @@ services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
+    devices:
+      - nvidia.com/gpu=all
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TIMEZONE}
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - ${CONFIG_PATH}/jellyfin:/config:z
       - ${MEDIA_PATH}:/data/media:z

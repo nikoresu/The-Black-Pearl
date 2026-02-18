@@ -3,6 +3,9 @@
 
 A complete Docker-based media automation stack featuring torrent management, content discovery, and streaming services.
 
+### Note
+> Most of the current documentation relies on Podman specific configurations
+
 ## Services Overview
 
 This stack includes the following services:
@@ -94,6 +97,12 @@ All services run on the `arr-network` Docker network, enabling secure inter-serv
 ## Backup
 
 The project includes a backup script at `backup/src/drive-backup.py` for backing up your configuration and data.
+
+## GPU Encoding
+
+Sometimes Jellyfin decides to transcode some of the content to enhance compatibility with clients and players. This process is better done through Hardware-accelerated encoding.
+
+To expose access to NVIDIA Cards follow [this documentation](https://podman-desktop.io/docs/podman/gpu).
 
 ## Troubleshooting
 
