@@ -142,6 +142,7 @@ services:
     volumes:
       - ${CONFIG_PATH}/jellyfin:/config:z
       - ${MEDIA_PATH}:/data/media:z
+      - ${ALTERNATE_MEDIA_PATH}:/data/alternateMedia:z
     ports:
       - 8096:8096
     networks:
