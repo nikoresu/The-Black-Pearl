@@ -1,5 +1,8 @@
 #!/bin/bash
 
+shopt -s expand_aliases
+source ~/.bashrc
+
 echo "Updating service images..."
 
 docker compose pull
