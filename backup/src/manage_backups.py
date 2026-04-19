@@ -174,9 +174,19 @@ def upload_to_drive(file: str):
     except Exception as e:
         print(f"Upload failed: {e}")
 
+def clean_local():
+    # Remove local zip file after upload
+    try:
+        os.remove(zip_file)
+        print(f"Deleted local zip file: {zip_file}")
+    except OSError as e:
+        print(f"Error deleting zip file {zip_file}: {e.strerror}")
+
+
 if __name__ == "__main__":
     services = define_services()
     get_backups(services)
     download_backups(services)
     zip_file = zip_working_dir()
     upload_to_drive(zip_file)
+    clean_local()
