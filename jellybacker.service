@@ -1,0 +1,7 @@
+[Unit]
+Description=Jellyfin Backup Scheduler
+
+[Service]
+Type=oneshot
+WorkingDirectory=${ARR_STACK_FOLDER}
+ExecStart=/usr/bin/python ${ARR_STACK_FOLDER}/backup/src/create_jelly_backup.py
