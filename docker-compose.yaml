@@ -133,3 +133,16 @@ services:
       - arr-network
     restart: always
 
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: always
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    networks:
+      - arr-network
+    depends_on:
+      - jellyfin
+      - seerr
+    command: tunnel --no-autoupdate run
+
